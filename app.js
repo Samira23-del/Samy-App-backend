@@ -16,6 +16,13 @@ const { User } = require('./auth/Models/userModel');
 // On importe le modèle User
 // pour que Sequelize puisse créer la table
 
+const { Etablissement } = require('./etablissement/Models/etablissementModel');
+const { SalleClasse } = require('./classe/Models/salleClasseModel');
+const { MembreClasse } = require('./classe/Models/membreClasseModel');
+// Même chose pour les nouveaux modèles
+// Sans cet import, Sequelize ne connaît pas
+// ces tables et ne les crée pas avec sync()
+
 const authRoutes = require('./auth/Controller/authController');
 app.use('/auth', authRoutes);
 
@@ -23,6 +30,12 @@ const adminRoutes = require('./auth/Controller/adminController');
 app.use('/admin', adminRoutes);
 // Toutes les routes de adminController
 // seront précédées de /admin
+
+const classeRoutes = require('./classe/Controller/classeController');
+app.use('/classes', classeRoutes);
+
+const etablissementRoutes = require('./etablissement/Controller/etablissementController');
+app.use('/etablissements', etablissementRoutes);
 
 
 // ═══════════════════════════════════════════════

@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../Models/userModel');
 
-const SECRET = 'monsecret123';
+const SECRET = process.env.JWT_SECRET;
 
 // ═══════════════════════════════════════════════
 // verifyToken — identique à avant
@@ -168,5 +168,8 @@ module.exports = {
   login,
   changerMotDePasse,
   listerUtilisateurs,
-  desactiverUtilisateur
+  desactiverUtilisateur,
+  verifyToken
+  // ↑ exportée aussi : d'autres services (ex: classeService)
+  //   ont besoin de vérifier le token sans dupliquer ce code
 };

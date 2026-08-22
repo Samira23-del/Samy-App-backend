@@ -159,51 +159,10 @@ router.put('/password', async (req, res) => {
 });
 
 
-// ═══════════════════════════════════════════════
-// ROUTE 4 — Lister les utilisateurs
-// GET /auth/users
-//
-// GET = méthode HTTP pour RÉCUPÉRER des données
-// C'est ce que fait ton navigateur quand tu
-// tapes une URL
-// ═══════════════════════════════════════════════
-
-router.get('/users', async (req, res) => {
-  try {
-    const users = await authService.listerUtilisateurs(req);
-    res.status(200).json(users);
-  } catch (erreur) {
-    res.status(403).json({ message: erreur.message });
-  }
-});
-
-
-// ═══════════════════════════════════════════════
-// ROUTE 5 — Désactiver un utilisateur
-// PUT /auth/users/:id/disable
-// ═══════════════════════════════════════════════
-
-router.put('/users/:id/disable', async (req, res) => {
-// :id = paramètre dynamique
-// L'URL peut être :
-// /auth/users/1/disable  → req.params.id = "1"
-// /auth/users/5/disable  → req.params.id = "5"
-//
-// ÉQUIVALENT PHP Laravel :
-// Route::put('/users/{id}/disable', ...)
-// $id = $request->route('id')
-  try {
-    const resultat = await authService.desactiverUtilisateur(
-      req,
-      req.params.id
-      // req.params.id = la valeur de :id dans l'URL
-    );
-    res.status(200).json(resultat);
-  } catch (erreur) {
-    res.status(400).json({ message: erreur.message });
-  }
-});
-
+// Les routes de gestion des utilisateurs (lister,
+// désactiver) sont réservées aux admins et vivent
+// désormais uniquement dans adminController.js,
+// sous le préfixe /admin.
 
 module.exports = router;
 // ↑ On exporte le router
